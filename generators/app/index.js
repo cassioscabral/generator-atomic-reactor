@@ -2,6 +2,7 @@
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
+var mkdirp = require('mkdirp');
 
 module.exports = yeoman.generators.Base.extend({
   prompting: function() {
@@ -13,9 +14,9 @@ module.exports = yeoman.generators.Base.extend({
 
     var prompts = [{
       type: 'confirm',
-      name: 'someOption',
-      message: 'Would you like to enable this option?',
-      default: true,
+      name: 'srcFolder',
+      message: 'Is there a src folder?',
+      default: false,
     },
   ];
 
@@ -29,9 +30,22 @@ module.exports = yeoman.generators.Base.extend({
   },
 
   writing: function() {
+    var srcPath = '';
+    if (this.props.srcFolder) {
+      srcPath = 'src';
+    }
+
+    // - atoms/
+    // - molecules/
+    // - organisms/
+    mkdirp.sync(srcPath + '/app/atoms/');
+    mkdirp.sync(srcPath + '/app/molecules/');
+    mkdirp.sync(srcPath + '/app/organisms/');
+
+    // console.log('structure creeated');
     this.fs.copy(
-      this.templatePath('dummyfile.txt'),
-      this.destinationPath('dummyfile.txt')
+      this.templatePath('App.js'),
+      this.destinationPath(srcPath + '/app/App.js')
     );
   },
 
