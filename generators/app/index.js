@@ -4,7 +4,7 @@ var chalk = require('chalk');
 var yosay = require('yosay');
 
 module.exports = yeoman.generators.Base.extend({
-  prompting: function () {
+  prompting: function() {
     var done = this.async();
 
     // Have Yeoman greet the user.
@@ -16,25 +16,27 @@ module.exports = yeoman.generators.Base.extend({
       type: 'confirm',
       name: 'someOption',
       message: 'Would you like to enable this option?',
-      default: true
-    }];
+      default: true,
+    },
+  ];
 
-    this.prompt(prompts, function (props) {
+    this.prompt(prompts, function(props) {
       this.props = props;
+
       // To access props later use this.props.someOption;
 
       done();
     }.bind(this));
   },
 
-  writing: function () {
+  writing: function() {
     this.fs.copy(
       this.templatePath('dummyfile.txt'),
       this.destinationPath('dummyfile.txt')
     );
   },
 
-  install: function () {
+  install: function() {
     this.installDependencies();
-  }
+  },
 });
