@@ -7,9 +7,8 @@ module.exports = yeoman.generators.Base.extend({
   prompting: function() {
     var done = this.async();
 
-    // Have Yeoman greet the user.
     this.log(yosay(
-      'Welcome to the sweet ' + chalk.red('generator-atomic-reactor') + ' generator!'
+      'Welcome to the nuclear ' + chalk.red('generator-atomic-reactor')
     ));
 
     var prompts = [{
