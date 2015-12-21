@@ -1,8 +1,13 @@
 {
+  "ecmaFeatures": {
+      "jsx": true
+    },
   "extends": "eslint:recommended",
   "env": {
     "node": true,
-    "mocha": true
+    "mocha": true,
+    "es": true,
+    "jsx": true
   },
   "rules": {
     "array-bracket-spacing": [

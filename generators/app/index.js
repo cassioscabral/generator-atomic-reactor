@@ -9,16 +9,17 @@ module.exports = yeoman.generators.Base.extend({
     var done = this.async();
 
     this.log(yosay(
-      'Welcome to the nuclear ' + chalk.red('generator-atomic-reactor')
+      'Welcome to the nuclear ' + chalk.red('atomic-reactor')
     ));
 
-    var prompts = [{
-      type: 'confirm',
-      name: 'srcFolder',
-      message: 'Is there a src folder?',
-      default: false,
-    },
-  ];
+    // Prompt example, that can be inserted in the prompts array
+    // {
+    //   type: 'confirm',
+    //   name: 'srcFolder',
+    //   message: 'Is there a src folder?',
+    //   default: false,
+    // },
+    var prompts = [];
 
     this.prompt(prompts, function(props) {
       this.props = props;
@@ -30,22 +31,34 @@ module.exports = yeoman.generators.Base.extend({
   },
 
   writing: function() {
-    var srcPath = '';
-    if (this.props.srcFolder) {
-      srcPath = 'src';
-    }
-
+    // TODO explore how to use this explosion art in small scale
+    // var explosion = `
+    //                           *****   *******   **
+    //                    *****  *********************  *****
+    //              ********************************************
+    //             **********************************************
+    //                ****  *******************************  ***
+    //                         *********************
+    //                            ****************
+    //                             *************
+    //                              **********
+    //                              ***********                *
+    //                  *          *************           *
+    //              *              **************      *
+    //            ****  ***   *  *****************  ****    **   ****
+    //        ********************************************************`;
+    //
+    // this.log(chalk.red(explosion));
     // - atoms/
     // - molecules/
     // - organisms/
-    mkdirp.sync(srcPath + '/app/atoms/');
-    mkdirp.sync(srcPath + '/app/molecules/');
-    mkdirp.sync(srcPath + '/app/organisms/');
+    mkdirp.sync('app/atoms/');
+    mkdirp.sync('app/molecules/');
+    mkdirp.sync('app/organisms/');
 
-    // console.log('structure creeated');
     this.fs.copy(
-      this.templatePath('App.js'),
-      this.destinationPath(srcPath + '/app/App.js')
+      this.templatePath('App.jsx'),
+      this.destinationPath('app/App.jsx')
     );
   },
 

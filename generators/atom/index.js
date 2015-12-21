@@ -3,27 +3,41 @@ var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
 var _ = require('lodash');
+var mkdirp = require('mkdirp');
 
 module.exports = yeoman.generators.Base.extend({
 
   constructor: function() {
-    generators.Base.apply(this, arguments);
+    yeoman.generators.Base.apply(this, arguments);
 
-    // This makes `appname` a required argument.
     this.argument('component', { type: String, required: true });
 
-    // And you can then access it later on this way; e.g. CamelCased
-    this.component = _.camelCase(this.component);
+    this.component = _.capitalize(_.camelCase(this.component));
   },
 
   writing: function() {
-    this.fs.copy(
-      this.templatePath('atom.js'),
-      this.destinationPath('atoms/' + this.component.toLowerCase())
-    );
-  },
+    var snakeComponent = _.snakeCase(this.component);
+    var stylesheetsType = 'scss'; // TODO make it dynamic, prompting the user
+    var appPath = 'app/'; // TODO make it dynamic, prompting the user
+    var type = 'atoms/'; // could be molecule or organism, just to make it repliccable
 
-  install: function() {
-    this.installDependencies();
+    var stylesheetsPath = appPath + type + snakeComponent + '/stylesheets';
+    var imagesPath = appPath + type + snakeComponent + '/images';
+    var testsPath = appPath + type + snakeComponent + '/tests';
+
+    mkdirp.sync(stylesheetsPath);
+    mkdirp.sync(imagesPath);
+    mkdirp.sync(testsPath);
+
+    this.fs.copyTpl(
+      this.templatePath('atom.jsx'),
+      this.destinationPath('app/atoms/' + snakeComponent + '/' + this.component + '.jsx'),
+      {component: this.component}
+    );
+
+    // TODO add templates for tests and stylesheet
+
+    this.fs.write(stylesheetsPath + '/' + snakeComponent + '.' + stylesheetsType, '');
+    this.fs.write(testsPath + '/' + snakeComponent + '.js', '');
   },
 });
