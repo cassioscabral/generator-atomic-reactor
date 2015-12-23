@@ -25,10 +25,12 @@ var baseGeneratorFactory = function(type) {
       var stylesheetsType = 'scss'; // TODO make it dynamic, prompting the user
       var appPath = 'src/components/';
       var componentType = type + 's/';
+      var commonPath = appPath + componentType + snakeComponent;
 
-      var stylesheetsPath = appPath + componentType + snakeComponent + '/stylesheets';
-      var imagesPath = appPath + componentType + snakeComponent + '/images';
-      var testsPath = appPath + componentType + snakeComponent + '/tests';
+      var stylesheetsPath = commonPath + '/stylesheets';
+      var imagesPath = commonPath + '/images';
+      var testsPath = commonPath + '/tests';
+      var filepath = commonPath + '/' + this.component + '.js';
 
       mkdirp.sync(stylesheetsPath);
       mkdirp.sync(imagesPath);
@@ -36,8 +38,13 @@ var baseGeneratorFactory = function(type) {
 
       this.fs.copyTpl(
         this.templatePath(type + '.js'),
-        this.destinationPath(appPath + componentType + '/' + snakeComponent + '/' + this.component + '.js'),
-        {component: this.component, componentClass: _.kebabCase(this.component)}
+        this.destinationPath(filepath),
+        {
+          component: this.component,
+          componentClass: _.kebabCase(this.component),
+          filename: snakeComponent,
+          filepath: filepath,
+        }
       );
 
       this.fs.write(stylesheetsPath + '/' + snakeComponent + '.' + stylesheetsType, '');
