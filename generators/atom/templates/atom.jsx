@@ -1,5 +1,9 @@
 var <%= component %> = React.createClass({
   render: function() {
-    return <div>Hello <%= component %></div>;
+    return (
+      <div className="<%= componentClass %>">
+        Hello <%= component %>
+      </div>
+    );
   },
 });

@@ -3,6 +3,7 @@ var chalk = require('chalk');
 var yosay = require('yosay');
 var _ = require('lodash');
 var mkdirp = require('mkdirp');
+
 var baseGeneratorFactory = function(type) {
   if (!_.includes(['atom', 'molecule', 'organism'], type)) {
     this.log.error('Component type: ' + type + ' invalid');
@@ -22,7 +23,7 @@ var baseGeneratorFactory = function(type) {
     writing: function() {
       var snakeComponent = _.snakeCase(this.component);
       var stylesheetsType = 'scss'; // TODO make it dynamic, prompting the user
-      var appPath = 'app/'; // TODO make it dynamic, prompting the user
+      var appPath = 'src/app/'; // TODO make it dynamic, prompting the user
       var componentType = type + 's/';
 
       var stylesheetsPath = appPath + componentType + snakeComponent + '/stylesheets';
@@ -35,8 +36,8 @@ var baseGeneratorFactory = function(type) {
 
       this.fs.copyTpl(
         this.templatePath(type + '.jsx'),
-        this.destinationPath('app/' + componentType + '/' + snakeComponent + '/' + this.component + '.jsx'),
-        {component: this.component}
+        this.destinationPath(appPath + componentType + '/' + snakeComponent + '/' + this.component + '.jsx'),
+        {component: this.component, componentClass: _.kebabCase(this.component)}
       );
 
       this.fs.write(stylesheetsPath + '/' + snakeComponent + '.' + stylesheetsType, '');
