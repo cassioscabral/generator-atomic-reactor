@@ -23,7 +23,7 @@ var baseGeneratorFactory = function(type) {
     writing: function() {
       var snakeComponent = _.snakeCase(this.component);
       var stylesheetsType = 'scss'; // TODO make it dynamic, prompting the user
-      var appPath = 'src/app/'; // TODO make it dynamic, prompting the user
+      var appPath = 'src/components/';
       var componentType = type + 's/';
 
       var stylesheetsPath = appPath + componentType + snakeComponent + '/stylesheets';
@@ -35,8 +35,8 @@ var baseGeneratorFactory = function(type) {
       mkdirp.sync(testsPath);
 
       this.fs.copyTpl(
-        this.templatePath(type + '.jsx'),
-        this.destinationPath(appPath + componentType + '/' + snakeComponent + '/' + this.component + '.jsx'),
+        this.templatePath(type + '.js'),
+        this.destinationPath(appPath + componentType + '/' + snakeComponent + '/' + this.component + '.js'),
         {component: this.component, componentClass: _.kebabCase(this.component)}
       );
 

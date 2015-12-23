@@ -52,14 +52,9 @@ module.exports = yeoman.generators.Base.extend({
     // - atoms/
     // - molecules/
     // - organisms/
-    mkdirp.sync('src/app/atoms/');
-    mkdirp.sync('src/app/molecules/');
-    mkdirp.sync('src/app/organisms/');
-
-    this.fs.copy(
-      this.templatePath('App.jsx'),
-      this.destinationPath('src/app/App.jsx')
-    );
+    mkdirp.sync('src/components/atoms/');
+    mkdirp.sync('src/components/molecules/');
+    mkdirp.sync('src/components/organisms/');
   },
 
   install: function() {
