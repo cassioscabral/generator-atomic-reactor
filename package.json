@@ -29,7 +29,7 @@
     "gulp-mocha": "^2.0.0",
     "gulp-nsp": "^2.1.0",
     "gulp-plumber": "^1.0.0",
-    "lodash": "^3.10.1",
+    "lodash": "^4.17.19",
     "yeoman-assert": "^2.0.0"
   },
   "repository": "https://github.com/cassioscabral/generator-atomic-reactor.git",
